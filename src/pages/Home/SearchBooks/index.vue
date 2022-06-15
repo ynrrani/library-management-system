@@ -366,7 +366,7 @@ export default {
     }),
   },
   mounted() {
-    // this.$store.dispatch('initBooksList')
+    this.$store.dispatch('initBooksList')
     console.log(this.searchBooks);
   },
 };

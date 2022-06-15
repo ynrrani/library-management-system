@@ -18,7 +18,10 @@ const actions = {
 const mutations = {
   
     INITBOOKSLIST(state,data){
-        state.booksList = data
+        data = data || []
+        state.booksList = data.filter(item=>{
+            return item.status == 1
+        })
     }
 
 

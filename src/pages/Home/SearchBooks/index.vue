@@ -21,23 +21,68 @@
         <template slot-scope="props">
           <el-form label-position="left" class="demo-table-expand">
             <el-form-item label="图书名称：">
-              <span>{{ props.row.bookName }}</span>
+              <span>{{ props.row.bookName }}</span
+              >&nbsp;<el-button
+                v-show="isAdmin"
+                @click="changeBookName(props.row)"
+                type="text"
+                style="float: right"
+                size="mini"
+                icon="el-icon-edit"
+                >修改书名</el-button
+              >
             </el-form-item>
             <el-form-item label="图书作者：">
-              <span>{{ props.row.author }}</span>
+              <span>{{ props.row.author }}</span
+              >&nbsp;<el-button
+                v-show="isAdmin"
+                @click="changeBookAuthor(props.row)"
+                type="text"
+                style="float: right"
+                size="mini"
+                icon="el-icon-edit"
+                >修改作者</el-button
+              >
             </el-form-item>
             <el-form-item label="书籍位置：">
-              <span>{{ props.row.position }}</span>
+              <span>{{ props.row.position }}</span
+              >&nbsp;<el-button
+                v-show="isAdmin"
+                @click="changeBookPosition(props.row)"
+                type="text"
+                style="float: right"
+                size="mini"
+                icon="el-icon-edit"
+                >修改位置</el-button
+              >
+            </el-form-item>
+            <el-form-item label="总库存："
+              >&nbsp;&nbsp; <span>{{ props.row.totalAmount }}</span
+              >&nbsp;<el-button
+                v-show="isAdmin"
+                @click="changeBookAmount(props.row)"
+                type="text"
+                style="float: right"
+                size="mini"
+                icon="el-icon-edit"
+                >修改库存</el-button
+              >
             </el-form-item>
             <el-form-item label="当前库存：">
               <span>{{ props.row.amount }}</span>
             </el-form-item>
-            <el-form-item label="总库存："
-              >&nbsp;&nbsp;
-              <span>{{ props.row.totalAmount }}</span>
-            </el-form-item>
             <el-form-item label="借阅次数：">
               <span>{{ props.row.borrowedTimes }}</span>
+                <el-popconfirm
+                  title="确认删除该书籍吗？"
+                  v-if="isAdmin"
+                  style="float: right;"
+                  @confirm="delBook(props.row)"
+                >
+                  <el-button  size="mini" type="danger" slot="reference" 
+                    >删除</el-button
+                  >
+                </el-popconfirm>
             </el-form-item>
           </el-form>
         </template>
@@ -67,8 +112,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { addReserve, initReserve, searchBook } from "@/api";
-import axios from "axios";
+import { addReserve, initReserve, searchBook, changeBookInfo,delBook } from "@/api";
 import qs from "qs";
 export default {
   name: "SearchBooks",
@@ -147,6 +191,166 @@ export default {
       this.flag = 0;
       this.searchBooks = [];
     },
+    changeBookName(row) {
+      console.log(row);
+      var bookId = row.bookId;
+      var status = 1;
+      this.$prompt("请输入书名", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputValue: row.bookName,
+      })
+        .then(({ value }) => {
+          this.$message({
+            type: "success",
+            message: "你修改的书名是: " + value,
+          });
+          // 修改的信息
+          var infoObj = { bookId, value, status };
+          changeBookInfo(qs.stringify(infoObj)).then(
+            (res) => {
+              console.log(res);
+              this.$store.dispatch("initBooksList");
+              this.$store.dispatch("initReserveList");
+            },
+            (err) => {
+              console.log(err.message);
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消输入",
+          });
+        });
+    },
+    changeBookAuthor(row) {
+      console.log(row);
+      var bookId = row.bookId;
+      var status = 2;
+      this.$prompt("请输入作者名", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputValue: row.author,
+      })
+        .then(({ value }) => {
+          this.$message({
+            type: "success",
+            message: "你修改的作者名是: " + value,
+          });
+          // 修改的信息
+          var infoObj = { bookId, value, status };
+          changeBookInfo(qs.stringify(infoObj)).then(
+            (res) => {
+              console.log(res);
+              this.$store.dispatch("initBooksList");
+              this.$store.dispatch("initReserveList");
+            },
+            (err) => {
+              console.log(err.message);
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消输入",
+          });
+        });
+    },
+    changeBookPosition(row) {
+      console.log(row);
+      var bookId = row.bookId;
+      var status = 3;
+      this.$prompt("请输入位置", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputValue: row.position,
+      })
+        .then(({ value }) => {
+          // 修改的信息
+          var infoObj = { bookId, value, status };
+          changeBookInfo(qs.stringify(infoObj)).then(
+            (res) => {
+              console.log(res);
+              if (res.status == 0) {
+                this.$message({
+                  type: "error",
+                  message: res.msg,
+                });
+              } else {
+                this.$message({
+                  type: "success",
+                  message: "你修改的位置是: " + value,
+                });
+              }
+              this.$store.dispatch("initBooksList");
+              this.$store.dispatch("initReserveList");
+            },
+            (err) => {
+              console.log(err.message);
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消输入",
+          });
+        });
+    },
+    changeBookAmount(row) {
+      console.log(row);
+      var bookId = row.bookId;
+      var status = 4;
+      this.$prompt("请输入库存", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputValue: row.totalAmount,
+      })
+        .then(({ value }) => {
+          this.$message({
+            type: "success",
+            message: "你修改库存是: " + value,
+          });
+          // 修改的信息
+          var infoObj = { bookId, value, status };
+          changeBookInfo(qs.stringify(infoObj)).then(
+            (res) => {
+              console.log(res);
+              this.$store.dispatch("initBooksList");
+              this.$store.dispatch("initReserveList");
+            },
+            (err) => {
+              console.log(err.message);
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消输入",
+          });
+        });
+    },
+    delBook(row){
+      console.log(row);
+      let bookId = row.bookId;
+      delBook(qs.stringify({bookId})).then(res=>{
+        console.log(res);
+        if(res.status == 200)
+         this.$message({
+            type: "success",
+            message: res.msg,
+          });
+         this.$store.dispatch("initBooksList");
+         this.$store.dispatch("initReserveList");
+    },err=>{
+      console.log(err.message);
+    })
+
+    }
   },
   computed: {
     ...mapState({

@@ -41,7 +41,7 @@
           <i class="el-icon-user"></i>
                 <span>我的</span>
           </template>
-          <el-menu-item index="1-1-1" @click="$router.push('/home/readersubcribe')">
+          <el-menu-item index="1-1-1" @click="$router.push('/home/readerborrows')">
               <i class="el-icon-date"></i>
               <span>借阅记录</span>
               </el-menu-item>

@@ -87,6 +87,18 @@ export const auditComment = (infoObj) => requests({
     method: 'post',
     data:infoObj
 })
+// 管理员修改图书信息接口
+export const changeBookInfo = (infoObj) => requests({
+    url: '/changebookinfo',
+    method: 'post',
+    data:infoObj
+})
+// 管理员删除图书信息接口
+export const delBook = (infoObj) => requests({
+    url: '/delbook',
+    method: 'post',
+    data:infoObj
+})
 
 
 

@@ -95,17 +95,7 @@
       </el-table-column>
       <el-table-column sortable label="当前库存" prop="amount">
       </el-table-column>
-      <el-table-column label="操作" v-if="!isAdmin">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="primary"
-            plain
-            @click="bookReserve(scope.$index, scope.row)"
-            >预约</el-button
-          >
-        </template>
-      </el-table-column>
+    
     </el-table>
   </div>
 </template>

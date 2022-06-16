@@ -154,7 +154,9 @@ export default {
                 type: "success"
               });
             }
-            this.$store.dispatch("initBorrows", { readerId: this.readerId });
+            // this.$store.dispatch("initBorrows", { readerId: this.readerId });
+        this.$store.dispatch('initReserve',{readerId:this.readerId})
+
           },
           err => {
             this.loading = false;

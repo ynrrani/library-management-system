@@ -99,6 +99,18 @@ export const delBook = (infoObj) => requests({
     method: 'post',
     data:infoObj
 })
+// 管理员删除人员信息接口
+export const delPerson = (infoObj) => requests({
+    url: '/delperson',
+    method: 'post',
+    data:infoObj
+})
+// 管理员提醒读者还书接口
+export const alertPerson = (infoObj) => requests({
+    url: '/alertperson',
+    method: 'post',
+    data:infoObj
+})
 
 
 

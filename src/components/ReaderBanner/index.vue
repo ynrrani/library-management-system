@@ -71,7 +71,7 @@ export default {
 
   mounted() {
     this.$store.dispatch('initCommentsList')
-    this.$store.dispatch('initBorrows',{readerId:this.readerId})
+    // this.$store.dispatch('initBorrows',{readerId:this.readerId})
     this.$store.dispatch('initReserve',{readerId:this.readerId})
     this.$store.dispatch('initStuReport',{readerId:this.readerId})
   },

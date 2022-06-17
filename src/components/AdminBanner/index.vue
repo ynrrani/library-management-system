@@ -78,11 +78,11 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('initCommentsList')
-    this.$store.dispatch('initBorrowsList')
-    this.$store.dispatch('initReserveList')
-    this.$store.dispatch('initReaderList')
-    this.$store.dispatch('initReportList')
+    // this.$store.dispatch('initCommentsList')
+    // this.$store.dispatch('initBorrowsList')
+    // this.$store.dispatch('initReserveList')
+    // this.$store.dispatch('initReaderList')
+    // this.$store.dispatch('initReportList')
   },
 
   methods: {

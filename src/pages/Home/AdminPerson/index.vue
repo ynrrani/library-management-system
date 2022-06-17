@@ -87,6 +87,9 @@ export default {
           console.log(err.message);
         })
       }
+    },
+    mounted(){
+    this.$store.dispatch('initReaderList')
     }
 };
 </script>

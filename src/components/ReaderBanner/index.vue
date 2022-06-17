@@ -19,19 +19,23 @@
         <i class="el-icon-search"></i>
         <span slot="title">查询图书</span>
       </el-menu-item>
-      <el-menu-item index="3" @click="$router.push('/home/readerborrows')">
+      <el-menu-item index="3" @click="$router.push('/home/readerreserve')">
         <i class="el-icon-s-promotion"></i>
+        <span slot="title">预约记录</span>
+      </el-menu-item>
+      <el-menu-item index="4" @click="$router.push('/home/readerborrows')">
+        <i class="el-icon-document-copy"></i>
         <span slot="title">借阅记录</span>
       </el-menu-item>
-      <el-menu-item index="4" @click="$router.push('/home/comment')">
+      <el-menu-item index="5" @click="$router.push('/home/comment')">
         <i class="el-icon-s-comment"></i>
         <span slot="title">交流社区</span>
       </el-menu-item>
-        <el-menu-item index="5" @click="$router.push('/home/readerreport')">
+        <el-menu-item index="6" @click="$router.push('/home/readerreport')">
         <i class="el-icon-question"></i>
         <span slot="title">举报反馈</span>
       </el-menu-item>
-      <el-submenu index="6">
+      <el-submenu index="7">
         <template slot="title">
           <i class="el-icon-setting"></i>
           <span>设置</span>
@@ -41,16 +45,20 @@
           <i class="el-icon-user"></i>
                 <span>我的</span>
           </template>
-          <el-menu-item index="1-1-1" @click="$router.push('/home/readerborrows')">
+          <el-menu-item index="1-1-1" @click="$router.push('/home/readerreserve')">
               <i class="el-icon-date"></i>
+              <span>预约记录</span>
+              </el-menu-item>
+          <el-menu-item index="1-1-2" @click="$router.push('/home/readerborrows')">
+              <i class="el-icon-document-copy"></i>
               <span>借阅记录</span>
               </el-menu-item>
-          <el-menu-item index="1-1-2" @click="toggleUser">
+          <el-menu-item index="1-1-3" @click="toggleUser">
               <i class="el-icon-s-fold"></i>
               <span>切换账号</span>
         </el-menu-item>
         </el-submenu>
-         <el-menu-item index="6" @click="toggleUser">
+         <el-menu-item index="1-2" @click="toggleUser">
         <i class="el-icon-switch-button"></i>
         <span slot="title">退出账号</span>
       </el-menu-item>
@@ -70,10 +78,10 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('initCommentsList')
+    // this.$store.dispatch('initCommentsList')
     // this.$store.dispatch('initBorrows',{readerId:this.readerId})
-    this.$store.dispatch('initReserve',{readerId:this.readerId})
-    this.$store.dispatch('initStuReport',{readerId:this.readerId})
+    // this.$store.dispatch('initReserve',{readerId:this.readerId})
+    // this.$store.dispatch('initStuReport',{readerId:this.readerId})
   },
  computed:{
     ...mapState({

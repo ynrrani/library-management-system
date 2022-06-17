@@ -115,7 +115,7 @@ export const alertPerson = (infoObj) => requests({
 
 
 
-// 读者查询借阅接口
+// 读者请求借阅记录接口
 export const initBorrows = (readerId) => requests({
     url: '/borrows',
     method: 'post',
@@ -139,15 +139,21 @@ export const deleteReserve = (reserveObj) => requests({
     method: 'post',
     data: reserveObj
 })
-// 修改预约状态接口
-export const changeReserve = (reserveObj) => requests({
-    url: '/changereserve',
+// 借书接口
+export const addBorrow = (borrowObj) => requests({
+    url: '/addborrow',
     method: 'post',
-    data: reserveObj
+    data: borrowObj
 })
 // 续借接口
 export const continueBorrow = (infoObj) => requests({
     url: '/continueborrow',
+    method: 'post',
+    data: infoObj
+})
+// 还书接口
+export const returnBook = (infoObj) => requests({
+    url: '/returnbook',
     method: 'post',
     data: infoObj
 })
@@ -156,18 +162,6 @@ export const initReserve = (readerObj) => requests({
     url: '/reserve',
     method: 'post',
     data: readerObj
-})
-// 添加借书记录接口
-export const addBorrow = (borrowObj) => requests({
-    url: '/addborrow',
-    method: 'post',
-    data: borrowObj
-})
-// 修改借书记录接口
-export const changeBorrow = (borrowObj) => requests({
-    url: '/changeborrow',
-    method: 'post',
-    data: borrowObj
 })
 // 重新获取学生信息接口
 export const initReader = (readerId) => requests({

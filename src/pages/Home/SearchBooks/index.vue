@@ -29,7 +29,7 @@
                 style="float: right"
                 size="mini"
                 icon="el-icon-edit"
-                >修改书名</el-button
+                >修改</el-button
               >
             </el-form-item>
             <el-form-item label="图书作者：">
@@ -41,7 +41,7 @@
                 style="float: right"
                 size="mini"
                 icon="el-icon-edit"
-                >修改作者</el-button
+                >修改</el-button
               >
             </el-form-item>
             <el-form-item label="书籍位置：">
@@ -53,24 +53,27 @@
                 style="float: right"
                 size="mini"
                 icon="el-icon-edit"
-                >修改位置</el-button
+                >修改</el-button
               >
             </el-form-item>
-            <el-form-item label="总库存："
-              >&nbsp;&nbsp; <span>{{ props.row.totalAmount }}</span
-              >&nbsp;<el-button
+               <el-form-item label="当前库存：">
+              <span>{{ props.row.amount }}</span>
+              &nbsp;<el-button
                 v-show="isAdmin"
-                @click="changeBookAmount(props.row)"
+                @click="changeCurrentAmount(props.row)"
                 type="text"
                 style="float: right"
                 size="mini"
                 icon="el-icon-edit"
-                >修改库存</el-button
+                >修改</el-button
               >
             </el-form-item>
-            <el-form-item label="当前库存：">
-              <span>{{ props.row.amount }}</span>
+            <el-form-item label="总库存："
+              >&nbsp;&nbsp; <span>{{ props.row.totalAmount }}</span
+              >
+              
             </el-form-item>
+         
             <el-form-item label="借阅次数：">
               <span>{{ props.row.borrowedTimes }}</span>
                 <el-popconfirm
@@ -80,7 +83,7 @@
                   @confirm="delBook(props.row)"
                 >
                   <el-button  size="mini" type="danger" slot="reference" 
-                    >删除</el-button
+                    >删除书籍</el-button
                   >
                 </el-popconfirm>
             </el-form-item>
@@ -95,7 +98,17 @@
       </el-table-column>
       <el-table-column sortable label="当前库存" prop="amount">
       </el-table-column>
-    
+     <el-table-column label="操作" v-if="!isAdmin">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            @click="bookReserve(scope.$index, scope.row)"
+            >预约</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -290,22 +303,23 @@ export default {
           });
         });
     },
-    changeBookAmount(row) {
-      console.log(row);
+    changeCurrentAmount(row){
+        console.log(row);
       var bookId = row.bookId;
       var status = 4;
       this.$prompt("请输入库存", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        inputValue: row.totalAmount,
+        inputValue: row.amount,
       })
         .then(({ value }) => {
           this.$message({
             type: "success",
-            message: "你修改库存是: " + value,
+            message: "你修改当前库存是: " + value,
           });
+          let difference = value - row.amount
           // 修改的信息
-          var infoObj = { bookId, value, status };
+          var infoObj = { bookId, value, status, difference };
           changeBookInfo(qs.stringify(infoObj)).then(
             (res) => {
               console.log(res);

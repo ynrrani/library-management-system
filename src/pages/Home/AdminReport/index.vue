@@ -192,6 +192,9 @@ export default {
       );
     },
   },
+  mounted(){
+    this.$store.dispatch('initReportList')
+  }
 };
 </script>
 

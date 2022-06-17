@@ -190,6 +190,9 @@ export default {
             })
 
         }
+    },
+    mounted(){
+    this.$store.dispatch('initCommentsList')
     }
   }
 </script>

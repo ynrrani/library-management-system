@@ -96,7 +96,7 @@ export default {
         })
     },
     mounted() {
-        // this.$store.dispatch('initReserveList')
+        this.$store.dispatch('initReserveList')
     },
 
     methods: {

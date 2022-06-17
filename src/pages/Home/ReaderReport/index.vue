@@ -68,6 +68,9 @@ export default {
         }
         })
     },
+    mounted(){
+    this.$store.dispatch('initStuReport',{readerId:this.readerId})
+    }
 };
 </script>
 

@@ -90,7 +90,7 @@
         </el-popconfirm>&nbsp;
         <el-popconfirm
           v-show="scope.row.status == '审核中'"
-          title="确认删除吗？"
+          title="确认驳回吗？"
           @confirm="auditBack(scope.$index, scope.row)"
         >
           <el-button

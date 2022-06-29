@@ -6,6 +6,9 @@
     element-loading-background="rgba(0, 0, 0, 0.8)"
     class="clearfix wrap"
   >
+  评论数：<span v-text="amount"></span>----
+  评论最多的人：<span v-text="maxperson"></span>----
+  评论最多的人的评论数：<span v-text="maxamount"></span>
     <div
       class="comment"
       v-for="(comment, index) of commentsList"
@@ -75,6 +78,7 @@
 import { mapState } from "vuex";
 import { addComment, addPraise, reportComment,auditComment } from "@/api";
 import qs from "qs";
+import axios from 'axios';
 export default {
   name: "Comment",
 
@@ -83,6 +87,10 @@ export default {
       loading: false,
       textarea: "",
       bookId: "",
+      amount:0,
+      person:'',
+      maxamount:0,
+      maxperson:''
     };
   },
   computed: {
@@ -189,10 +197,26 @@ export default {
                 console.log(err.message);
             })
 
-        }
+    }
     },
     mounted(){
     this.$store.dispatch('initCommentsList')
+    axios({
+      url:'/api/amount',
+      method:'post'
+    }).then(res=>{
+      console.log(res.data.data[0].mytotal);
+      this.amount = res.data.data[0].mytotal
+    })
+    // -----
+    axios({
+      url:'/api/amountmax',
+      method:'post'
+    }).then(res=>{
+      console.log(res.data.data[0].mytotal);
+      this.maxamount = res.data.data[0].amount
+      this.maxperson = res.data.data[0].readerName
+    })
     }
   }
 </script>

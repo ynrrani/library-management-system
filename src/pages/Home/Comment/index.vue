@@ -6,9 +6,6 @@
     element-loading-background="rgba(0, 0, 0, 0.8)"
     class="clearfix wrap"
   >
-  评论数：<span v-text="amount"></span>----
-  评论最多的人：<span v-text="maxperson"></span>----
-  评论最多的人的评论数：<span v-text="maxamount"></span>
     <div
       class="comment"
       v-for="(comment, index) of commentsList"

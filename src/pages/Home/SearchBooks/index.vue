@@ -71,9 +71,9 @@
             <el-form-item label="总库存："
               >&nbsp;&nbsp; <span>{{ props.row.totalAmount }}</span
               >
-              
+
             </el-form-item>
-         
+
             <el-form-item label="借阅次数：">
               <span>{{ props.row.borrowedTimes }}</span>
                 <el-popconfirm
@@ -82,7 +82,7 @@
                   style="float: right;"
                   @confirm="delBook(props.row)"
                 >
-                  <el-button  size="mini" type="danger" slot="reference" 
+                  <el-button  size="mini" type="danger" slot="reference"
                     >删除书籍</el-button
                   >
                 </el-popconfirm>
@@ -117,6 +117,8 @@
 import { mapState } from "vuex";
 import { addReserve, initReserve, searchBook, changeBookInfo,delBook } from "@/api";
 import qs from "qs";
+import moment from 'moment';
+
 export default {
   name: "SearchBooks",
   data() {
@@ -137,7 +139,7 @@ export default {
       console.log(index, row);
       let readerId = this.readerId;
       let bookId = row.bookId;
-      let date = this.$moment().format("YYYY-MM-DD HH:mm:ss");
+      let date = moment().format("YYYY-MM-DD HH:mm:ss");
       let reserveObj = { readerId, bookId, date, status: "已预约" };
       console.log(reserveObj);
       //  添加预约记录

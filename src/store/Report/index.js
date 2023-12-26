@@ -1,5 +1,6 @@
 import {initReportList,initStuReport} from '@/api'
 import qs from 'qs';
+import moment from 'moment';
 const state = {
   reportList:[],
   stuReport:[]
@@ -25,10 +26,10 @@ const actions = {
 const mutations = {
     INITREPORTLIST(state,data){
         // 保存举报区数组
-        state.reportList = data
+        state.reportList = data.map(item => ({...item, reportdate: moment.utc(item?.reportdate).format('YYYY-MM-DD HH:mm:ss')}))
     },
     INITSTUREPORT(state,data){
-        state.stuReport = data
+        state.stuReport = data.map(item => ({...item, reportdate: moment.utc(item?.reportdate).format('YYYY-MM-DD HH:mm:ss')}))
     }
 }
 

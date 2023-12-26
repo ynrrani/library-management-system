@@ -5,7 +5,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8080', // 配置好的后端接口地址
+        target: 'http://localhost:8080', // 配置好的后端接口地址
         // 允许跨域
         // changeOrigin: true,
         ws: true,

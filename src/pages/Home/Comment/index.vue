@@ -18,7 +18,7 @@
         v-if="!isAdmin"
         @confirm="report(comment.commentId,comment.readerId)"
       >
-        <el-button  size="mini" type="danger" class="report" slot="reference" 
+        <el-button  size="mini" type="danger" class="report" slot="reference"
           >举报</el-button
         >
       </el-popconfirm>
@@ -27,11 +27,11 @@
         title="确认删除吗？"
         @confirm="delComment(comment.readerId, comment.bookId, comment.date)"
       >
-        <el-button size="mini" type="danger" class="report" slot="reference" 
+        <el-button size="mini" type="danger" class="report" slot="reference"
           >删除</el-button
         >
       </el-popconfirm>
-       
+
       <el-badge :value="comment.praise" class="praise">
         <el-button
           size="mini"
@@ -112,20 +112,21 @@ export default {
   methods: {
     sendcomment() {
       this.loading = true;
+      let dataObj
       if(this.isAdmin){
-        var dataObj = {
+        dataObj = {
           readerId: this.adminName,
           bookId: this.bookId,
           content: this.textarea,
         };
       }else{
-         var dataObj = {
+        dataObj = {
         readerId: this.readerId,
         bookId: this.bookId,
         content: this.textarea,
       };
       }
-     
+
       addComment(qs.stringify(dataObj)).then(
         (res) => {
           this.loading = false;

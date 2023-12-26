@@ -39,7 +39,7 @@
           >点赞</el-button
         >
       </el-badge>
-      <div class="reader">{{ isAdmin ? adminName : comment.readerName }}</div>
+      <div class="reader">{{ comment.readerName }}</div>
       <div class="time">{{ comment.date }}</div>
       <div class="content">{{ comment.content }}</div>
       <div>{{ comment.prise }}</div>
